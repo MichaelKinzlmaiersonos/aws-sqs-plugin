@@ -123,8 +123,9 @@ public class SQSTriggerQueue extends AbstractDescribableImpl<SQSTriggerQueue> im
                 io.relution.jenkins.awssqs.logging.Log.info("SQSTriggerQueue: No credentials found for id{%s}", credentialsId);
 
             } else {
-                this.accessKey = scresult.getId();
+                this.accessKey = scresult.getId().toUpperCase();
                 this.secretKey = scresult.getSecret();
+                io.relution.jenkins.awssqs.logging.Log.info("AccessKey1 = %s", this.accessKey);
             }
         }
 
@@ -176,7 +177,9 @@ public class SQSTriggerQueue extends AbstractDescribableImpl<SQSTriggerQueue> im
             final Integer maxNumberOfJobQueue,
             final boolean keepQueueMessages) {
         this.uuid = StringUtils.isBlank(uuid) ? UUID.randomUUID().toString() : uuid;
-        this.accessKey = accessKey;
+        io.relution.jenkins.awssqs.logging.Log.info("AccessKey2 = %s", accessKey);
+        this.accessKey = accessKey.toUpperCase();
+
         this.secretKey = secretKey;
         this.nameOrUrl = nameOrUrl;
         this.credentialsId = null;
@@ -248,7 +251,7 @@ public class SQSTriggerQueue extends AbstractDescribableImpl<SQSTriggerQueue> im
     // Deprecated for use by applications written before aws-sqs-plugin tag 2.0.
     @Deprecated
     public String getAccessKey() {
-        return this.accessKey;
+        return this.accessKey.toUpperCase();
     }
 
     // Deprecated for use by applications written before aws-sqs-plugin tag 2.0.
@@ -309,7 +312,7 @@ public class SQSTriggerQueue extends AbstractDescribableImpl<SQSTriggerQueue> im
 
     @Override
     public String getAWSAccessKeyId() {
-        return this.accessKey;
+        return this.accessKey.toUpperCase();
     }
 
     @Override
